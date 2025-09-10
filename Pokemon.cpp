@@ -19,7 +19,7 @@ Pokemon::~Pokemon() {std::cout << "Pokemon " << name << " destroyed." << std::en
 
 void Pokemon::doAttack(Pokemon& target) {
     std::cout << name << " is attacking " << target.name <<std::endl;
-    double damage = attack - target.defense;
+    double damage = (attack/target.defense)*10;
     if (damage < 0) damage = 0;
     target.hitPoint= target.hitPoint - damage; 
     if (target.hitPoint < 0){target.hitPoint = 0;}
