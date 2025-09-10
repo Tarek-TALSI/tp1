@@ -28,7 +28,7 @@ int main() {
 */
 
 /*
-definir une liste de pokemons
+//definir une liste de pokemons
     Pokemon pikachu(25, "Pikachu", 1,35.0 ,35.0 ,55.0 ,40.0);
     Pokemon squirtle(7, "Squirtle", 1,44.0 ,44.0 ,48.0 ,65.0);
     Pokemon charmander(4, "Charmander", 1,39.0 ,39.0 ,52.0 ,43.0);
