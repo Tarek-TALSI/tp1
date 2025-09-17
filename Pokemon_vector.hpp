@@ -6,7 +6,7 @@
 
 class PokemonVector {
 
-private:
+protected:
 
     std::vector<Pokemon> pokemons;
 

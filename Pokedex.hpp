@@ -8,9 +8,14 @@ private:
 
     Pokedex();
     ~Pokedex();
-   
+
+    Pokedex(const Pokedex&) = delete;
+    Pokedex& operator=(const Pokedex&) = delete;
 public:
+    static Pokedex& getInstance();
+
+    Pokemon getClonePokemon(int id) const;
     
 };
 
-#endif // POKEDEX_HPP
+#endif 

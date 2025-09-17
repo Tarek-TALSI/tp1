@@ -23,6 +23,8 @@ class Pokemon{
 
     void displayInfo() const;
 
+    int getId() const {return id;}
+
     void doAttack(Pokemon& target);
 };
 

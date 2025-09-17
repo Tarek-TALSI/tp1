@@ -1,6 +1,7 @@
 
 #include "Pokemon.hpp"
 #include "Pokemon_vector.hpp"
+#include "Pokedex.hpp"
 
 
 int main() {
@@ -46,4 +47,17 @@ int main() {
 
     */
 
+    /*
+    //utiliser le pokedex
+
+    Pokedex& dex = Pokedex::getInstance();
+    
+    
+    Pokemon clone = dex.getClonePokemon(25);
+    
+    
+    clone.displayInfo();
+    
+    return 0;
+    */
 }
