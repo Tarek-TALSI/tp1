@@ -1,5 +1,6 @@
 # Code Review
 
+**By Archenault Maël**
 
 ## Repository structure
 
