@@ -26,6 +26,7 @@ class Pokemon{
     int getId() const {return id;}
 
     void doAttack(Pokemon& target);
+    std::string getName() const;
 };
 
 #endif

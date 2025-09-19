@@ -6,16 +6,16 @@ Pokemon::Pokemon(int id, std::string name,int evolution, double hitPoint, double
     : id(id), name(name),evolution(evolution), hitPoint(hitPoint),hitPointMax(hitPointmax)
     , attack(attack)
     , defense(defense)
-    {std::cout << "Pokemon " << name << " created." << std::endl;}
+    {}
 
 Pokemon::Pokemon(const Pokemon& otherpokemon)
     : id(otherpokemon.id), name(otherpokemon.name),evolution(otherpokemon.evolution),
     hitPoint(otherpokemon.hitPoint),hitPointMax(otherpokemon.hitPointMax),
     attack(otherpokemon.attack), defense(otherpokemon.defense)
     
-    {std::cout << "Pokemon " << name << " copied." << std::endl;}
+    {}
 
-Pokemon::~Pokemon() {std::cout << "Pokemon " << name << " destroyed." << std::endl;}
+Pokemon::~Pokemon() {}
 
 void Pokemon::doAttack(Pokemon& target) {
     std::cout << name << " is attacking " << target.name <<std::endl;
@@ -36,6 +36,11 @@ void Pokemon::displayInfo() const {
               << "Healthmax        : " << hitPointMax << "\n"
               << "Attack    : " << attack << "\n"
               << "Defense    : " << defense << "\n";
+}
+
+
+std::string Pokemon::getName() const {
+    return name;
 }
 
 

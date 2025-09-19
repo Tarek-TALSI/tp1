@@ -1,9 +1,9 @@
 #ifndef POKEDEX_HPP
 #define POKEDEX_HPP
-#include "Pokemon_vector.hpp"
+#include "Pokemon_Vector.hpp"
 
 
-class Pokedex : public PokemonVector {
+class Pokedex : public Pokemon_Vector {
 
 private:
 

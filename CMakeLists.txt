@@ -8,6 +8,9 @@ add_executable(tp1 main.cpp
                     Pokemon.cpp
                     Pokemon.hpp
                     Pokemon_Vector.cpp
-                    Pokemon_vector.hpp
+                    Pokemon_Vector.hpp
                     Pokedex.cpp
-                    Pokedex.hpp)
+                    Pokedex.hpp
+                    Pokemon_Party.hpp
+                    Pokemon_Attack.cpp
+                    Pokemon_Attack.hpp)
