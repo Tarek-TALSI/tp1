@@ -1,3 +1,5 @@
+#include <iostream>
+
 
 #include "Pokemon.hpp"
 #include "Pokemon_vector.hpp"
@@ -25,8 +27,8 @@ int main() {
     copiedSquirtle.displayInfo();
     
     return 0;
-}
-*/
+}*/
+
 
 /*
 //definir une liste de pokemons
@@ -47,17 +49,23 @@ int main() {
 
     */
 
-    /*
+    
     //utiliser le pokedex
 
     Pokedex& dex = Pokedex::getInstance();
     
     
-    Pokemon clone = dex.getClonePokemon(25);
+    //Pokemon clone = dex.getClonePokemon(25);
     
     
-    clone.displayInfo();
+    //clone.displayInfo();
+
+    // trying to get a second pokedex
+
+    Pokedex& dex2 = Pokedex::getInstance();
+
+
+    std::cout<<(&dex==&dex2)<<std::endl;
     
     return 0;
-    */
 }

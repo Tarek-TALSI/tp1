@@ -10,14 +10,13 @@ Pokedex& Pokedex::getInstance() {
 }
 
 Pokedex::Pokedex() {
-    std::ifstream file("pokedex.csv");
+    std::ifstream file("../pokedex.csv");
     if (!file.is_open()) {
         std::cerr << "Erreur lors de l'ouverture de pokedex.csv" << std::endl;
         return;
     }
     
     std::string line;
-   
     std::getline(file, line);
     
     

@@ -4,6 +4,7 @@
 
 
 class Pokedex : public PokemonVector {
+
 private:
 
     Pokedex();
