@@ -4,7 +4,7 @@
 #include <vector>
 #include "Pokemon.hpp"
 
-class PokemonVector {
+class Pokemon_Vector {
 
 protected:
 
