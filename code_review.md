@@ -40,7 +40,7 @@ Nothing to say. All good, clear and logical.
 
 ### Header file
 
-1. Maybe you should have put the static variable containing the instance of the singleton. I noticed that you create the instance in your source file, but it does not even appear in the class header definition.
+1. Maybe you should have put the static variable containing the instance of the singleton in the class definition. I noticed that you create the instance in your source file, but it does not even appear in the class definition.
 
     Maybe you could have a class definition like this:
     ```cpp
@@ -72,8 +72,8 @@ Nothing to say. All good, clear and logical.
     ```cpp
     // skipping the first line of the file, which contains the labels of the columns
     ```
-    Otherwise it's a bit hard to know why you do this getLine() and you're not using the line that you got.
-3. The data extraction from the csv is ok. However I would advise you to put this code to extract the data in a separate folder. That way you could have an abstraction layer on the csv reading. Your code would be a bit less messier.
+    Otherwise it's a bit hard to know why you do this getLine() and why you're not using the line that you got.
+3. The data extraction from the csv is ok. However I would advise you to put this code to extract the data in a separate file. That way you could have an abstraction layer on the csv reading. Your code would be a bit less messier.
 
 
 ## Overall
