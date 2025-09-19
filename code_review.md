@@ -8,6 +8,7 @@
 3. Just a small observation, your file 'Pokemon_vector.hpp' lacks an upper case on 'vector'. It's not consistent with the name of the c++ source file. It's not a big problem but it can make the difference between a good code and a very good code.
 4. You could also have used '.h' files for headers, it works exactly the same and this is what is typically done.
 5. Instead of putting your tests in the 'main.cpp' and commenting them, you could create test_files. That way, you don't need to comment/uncomment each time you want to retest something.
+6. The best practice is to have a 'build' folder where you put all of your build files (.o and executables). You need to add this 'build' folder to your .gitignore so that it is not tracked by git. Someone that clones your repo don't want your build files associated with it. It's even more true when they are placed a bit everywhere. 
 
 ## Pokemon Class
 
