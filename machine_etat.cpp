@@ -34,13 +34,39 @@ GameState* Rencontre::handle() {
     
     Pokemon clone = Pokedex::getInstance().getClonePokemon(randomId_R);
     std::cout << "C'est un " << clone.getName() << " !" << std::endl;
-    std::cout << "Essayer de capturer ? (o/n): ";
-    char c;
+    std::cout << "Veut tu le capturer ?(oui/non): ";
+    std::string c;
     std::cin >> c;
-    if (c == 'o') {
-        bool succes = (std::rand() % 2 == 0);
-        if (succes) std::cout << "Capture reussie !\n";
-        else std::cout << "Capture echouee...\n";
+    if (c=="non") {
+        std::cout << "Tu as laissé partir le Pokemon. Tu fais donc parti du lobby anti-exploitation des pokemons \n";
+        return new Exploration();
+    } else if (c == "oui") {
+
+        std::cout << "Est-tu sur de vouloir perpertrer le cycle de la haine et de la répression envers ce qui s'apparente à une réalité distopique critiquant la société d'aujourdhui ?(oui/non): ";
+        std::string reponse;
+        std::cin >> reponse;
+        if (reponse == "non") {
+            std::cout << "Tu est redevenu un être humain et ce Pokemon peut retourner gambader dans la prairie \n";
+            return new Exploration();}
+        else if (reponse == "oui") {
+            std::cout << "Daccord sans âme.\n Tu essayes alors de capturer ce Pokemon en l'ayant bien blessé avant car tu es pour la souffrance des Pokemons \n"; 
+            bool succes = (std::rand() % 2 == 0);
+            if (succes) {
+                std::cout << "Capture reussie ... Un pokemon de plus subira le joug de cette société\n";
+            }
+            else {
+                std::cout << "Capture echouee. Tu est une horrible personne même pas capable de capturer un Pokemon. \n";
+            }
+            return new Rencontre; 
+        }
+        else {
+            std::cout << "Il faut écouter les consignes !\n"; 
+            return new Rencontre; 
+        }
+    }
+    else {
+        std::cout << "Il faut écouter les consignes !\n"; 
+        return new Rencontre; 
     }
     return new Exploration();
 }
