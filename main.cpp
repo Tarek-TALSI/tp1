@@ -13,6 +13,8 @@
 #include <ctime>
 #include <limits>
 
+#include <unistd.h>
+#include <limits.h>
 
 enum class GameState {
     EcranAccueil,
@@ -66,9 +68,11 @@ int main() {
     */
 
     
-    // /*
+     /*
     //utiliser le pokedex
 
+
+    
     Pokedex& dex = Pokedex::getInstance();
     
     
@@ -85,7 +89,8 @@ int main() {
     //std::cout<<(&dex==&dex2)<<std::endl;
     
     return 0;
-    // */
+
+     */
 
     /*
     //creer une equipe d'attaque
@@ -109,7 +114,7 @@ int main() {
     return 0;
     */
 
-     /*
+     // /*
     //machine a etat
     std::srand(static_cast<unsigned>(std::time(nullptr)));
     Pokedex& dex = Pokedex::getInstance();
@@ -151,8 +156,9 @@ int main() {
 
         case GameState::Rencontre: {
             std::cout << "\n>>> Rencontre avec un Pokemon sauvage !\n";
-            std::cout << "C'est un %";
-            Pokemon clone = dex.getClonePokemon(25);
+            int randomId = std::rand() % 151 + 1; 
+            Pokemon clone = dex.getClonePokemon(randomId);
+            std::cout << "C'est un " << clone.getName() << " !" << std::endl;
             std::cout << "Essayer de capturer ? (o/n): ";
             char c;
             std::cin >> c;
@@ -192,7 +198,7 @@ int main() {
         }
     }
 
-    std::cout << "Merci d'avoir joue !\n";
+    std::cout << "Merci d'avoir joué !\n";
     return 0;
     //*/
      
