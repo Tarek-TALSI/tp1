@@ -13,4 +13,6 @@ add_executable(tp1 main.cpp
                     Pokedex.hpp
                     Pokemon_Party.hpp
                     Pokemon_Attack.cpp
-                    Pokemon_Attack.hpp)
+                    Pokemon_Attack.hpp
+                    machine_etat.cpp
+                    machine_etat.hpp)
