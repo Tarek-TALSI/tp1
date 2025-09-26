@@ -31,45 +31,50 @@ GameState* Exploration::handle() {
 GameState* Rencontre::handle() {
     std::cout << "\n>>> Rencontre avec un Pokemon sauvage !\n";
     int randomId_R = std::rand() % 151 + 1; 
-    
     Pokemon clone = Pokedex::getInstance().getClonePokemon(randomId_R);
     std::cout << "C'est un " << clone.getName() << " !" << std::endl;
-    std::cout << "Veut tu le capturer ?(oui/non): ";
-    std::string c;
-    std::cin >> c;
-    if (c=="non") {
-        std::cout << "Tu as laissé partir le Pokemon. Tu fais donc parti du lobby anti-exploitation des pokemons \n";
-        return new Exploration();
-    } else if (c == "oui") {
 
-        std::cout << "Est-tu sur de vouloir perpertrer le cycle de la haine et de la répression envers ce qui s'apparente à une réalité distopique critiquant la société d'aujourdhui ?(oui/non): ";
-        std::string reponse;
-        std::cin >> reponse;
-        if (reponse == "non") {
-            std::cout << "Tu est redevenu un être humain et ce Pokemon peut retourner gambader dans la prairie \n";
-            return new Exploration();}
-        else if (reponse == "oui") {
-            std::cout << "Daccord sans âme.\n Tu essayes alors de capturer ce Pokemon en l'ayant bien blessé avant car tu es pour la souffrance des Pokemons \n"; 
-            bool succes = (std::rand() % 2 == 0);
-            if (succes) {
-                std::cout << "Capture reussie ... Un pokemon de plus subira le joug de cette société\n";
-            }
-            else {
-                std::cout << "Capture echouee. Tu est une horrible personne même pas capable de capturer un Pokemon. \n";
-            }
-            return new Rencontre; 
+    while (true) {
+        std::cout << "Veux-tu le capturer ? (oui/non): ";
+        std::string choix;
+        std::cin >> choix;
+
+        if (choix == "non") {
+            std::cout << "Tu as laissé partir le Pokemon. Tu fais donc parti du lobby anti-exploitation des pokemons.\n";
+            return new Exploration();
         }
-        else {
-            std::cout << "Il faut écouter les consignes !\n"; 
-            return new Rencontre; 
+
+        if (choix == "oui") {
+            while (true) {
+                std::cout << "Es-tu sûr de vouloir perpétrer le cycle de la haine et de la répression envers ce Pokemon ? (oui/non): ";
+                std::string reponse;
+                std::cin >> reponse;
+
+                if (reponse == "non") {
+                    std::cout << "Tu es redevenu un être humain et ce Pokemon peut retourner gambader dans la prairie.\n";
+                    return new Exploration();
+                }
+
+                if (reponse == "oui") {
+                    std::cout << "D'accord, sans âme. Tu essayes de capturer ce Pokemon en l'ayant blessé.\n";
+                    bool succes = (std::rand() % 2 == 0);
+                    if (succes) {
+                        std::cout << "Capture réussie ... Un Pokemon de plus subira ton joug.\n";
+                    } else {
+                        std::cout << "Capture échouée. Tu n'as même pas réussi à capturer un Pokemon.\n";
+                    }
+                    std::cout << "Avant de repartir en exploration, le jeu t'informes que tu as reproduit des erreurs du passé dans cette grande distopie qu'est Pokemon. \n";
+                    return new Rencontre();
+                }
+
+                std::cout << "Il faut écouter les consignes !\n";
+            }
         }
+
+        std::cout << "Il faut écouter les consignes !\n";
     }
-    else {
-        std::cout << "Il faut écouter les consignes !\n"; 
-        return new Rencontre; 
-    }
-    return new Exploration();
 }
+
 
 
 GameState* Combat::handle() {
