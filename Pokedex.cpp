@@ -45,7 +45,10 @@ Pokedex::Pokedex() {
         std::getline(iss, token, ',');
         double defense = std::stod(token);
 
-        Pokemon p(id, name, 0, hitPoint, hitPointMax, attack, defense);
+        std::getline(iss, token, ',');
+        double speed = std::stod(token);
+
+        Pokemon p(id, name, 0, hitPoint, hitPointMax, attack, defense,speed);
         addPokemon(p);
     }
 
@@ -62,5 +65,5 @@ Pokemon Pokedex::getClonePokemon(int searchId) const {
         }
     }
     std::cerr << "Pokemon avec l'id " << searchId << " introuvable." << std::endl;
-    return Pokemon(0, "Unknown", 0, 0.0, 0.0, 0.0, 0.0);
+    return Pokemon(0, "Unknown", 0, 0.0, 0.0, 0.0, 0.0,0.0);
 }

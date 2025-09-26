@@ -2,16 +2,16 @@
 #include <iostream>
 
 Pokemon::Pokemon(int id, std::string name,int evolution, double hitPoint, double hitPointmax,
-     double attack, double defense)
+     double attack, double defense, double speed)
     : id(id), name(name),evolution(evolution), hitPoint(hitPoint),hitPointMax(hitPointmax)
     , attack(attack)
-    , defense(defense)
+    , defense(defense), speed(speed)
     {}
 
 Pokemon::Pokemon(const Pokemon& otherpokemon)
     : id(otherpokemon.id), name(otherpokemon.name),evolution(otherpokemon.evolution),
     hitPoint(otherpokemon.hitPoint),hitPointMax(otherpokemon.hitPointMax),
-    attack(otherpokemon.attack), defense(otherpokemon.defense)
+    attack(otherpokemon.attack), defense(otherpokemon.defense), speed(otherpokemon.speed)
     
     {}
 

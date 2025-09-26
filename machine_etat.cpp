@@ -65,7 +65,7 @@ GameState* Rencontre::handle() {
                         std::cout << "Capture échouée. Tu n'as même pas réussi à capturer un Pokemon.\n";
                     }
                     std::cout << "Avant de repartir en exploration, le jeu t'informes que tu as reproduit des erreurs du passé dans cette grande distopie qu'est Pokemon. \n";
-                    return new Rencontre();
+                    return new Exploration();
                 }
 
                 std::cout << "Il faut écouter les consignes !\n";
@@ -94,13 +94,25 @@ GameState* Combat::handle() {
         std::string reponse;
         std::cin>>reponse;
         if(reponse=="oui"){
+
             while(clone1.getHitPoint()>0 && clone2.getHitPoint()>0){
                 std::cout<<"------------------------"<<std::endl;
-                
-                clone2.doAttack(clone1);
+                Pokemon* first;
+                Pokemon* second;
+
+                if(clone1.getSpeed()>=clone2.getSpeed()){
+                    first=&clone1;
+                    second=&clone2;
+                }
+                else{
+                    first=&clone2;
+                    second=&clone1;
+                }
+
+                first->doAttack(*second);
                 if(clone1.getHitPoint()<=0) break;
             
-                clone1.doAttack(clone2);
+                second->doAttack(*first);
                 if(clone2.getHitPoint()<=0) break;
                 std::cout<<"il reste "<<clone1.getHitPoint()<<" points de vie a "<<clone1.getName()<<std::endl;
                 std::cout<<"il reste "<<clone2.getHitPoint()<<" points de vie a "<<clone2.getName()<<std::endl;

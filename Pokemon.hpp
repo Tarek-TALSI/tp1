@@ -12,10 +12,11 @@ class Pokemon{
         double hitPointMax;
         double attack;
         double defense;
+        double speed;
     public:
     
     Pokemon(int id, std::string name,int evolution, double hitPoint,double hitPointmax, 
-    double attack, double defense);
+    double attack, double defense, double speed);
 
     Pokemon(const Pokemon& otherpokemon);
     
@@ -28,6 +29,7 @@ class Pokemon{
     void doAttack(Pokemon& target);
     std::string getName() const;
     double getHitPoint() const {return hitPoint;}
+    double getSpeed() const {return speed;}
 };
 
 #endif
