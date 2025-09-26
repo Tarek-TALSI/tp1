@@ -7,6 +7,20 @@
 #include "Pokemon_Attack.hpp"
 #include "Pokemon_Party.hpp"    
 
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <limits>
+
+
+enum class GameState {
+    EcranAccueil,
+    Exploration,
+    Rencontre,
+    Combat,
+    GameOver
+};
 
 int main() {
 
@@ -52,28 +66,28 @@ int main() {
     */
 
     
-    /*
+    // /*
     //utiliser le pokedex
 
     Pokedex& dex = Pokedex::getInstance();
     
     
-    //Pokemon clone = dex.getClonePokemon(25);
+    Pokemon clone = dex.getClonePokemon(25);
     
     
-    //clone.displayInfo();
+    clone.displayInfo();
 
-    // trying to get a second pokedex
+     //trying to get a second pokedex
 
-    Pokedex& dex2 = Pokedex::getInstance();
+    //Pokedex& dex2 = Pokedex::getInstance();
 
 
-    std::cout<<(&dex==&dex2)<<std::endl;
+    //std::cout<<(&dex==&dex2)<<std::endl;
     
     return 0;
-    */
+    // */
 
-
+    /*
     //creer une equipe d'attaque
     Pokemon pikachu(25, "Pikachu", 1,35.0 ,35.0 ,55.0 ,40.0);
     Pokemon squirtle(7, "Squirtle", 1,44.0 ,44.0 ,48.0 ,65.0);
@@ -93,4 +107,94 @@ int main() {
     attackTeam.addPokemon(mewtwo); // This should not be added
     attackTeam.displayAllPokemons();
     return 0;
+    */
+
+     /*
+    //machine a etat
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    Pokedex& dex = Pokedex::getInstance();
+    
+
+    GameState state = GameState::EcranAccueil;
+    bool running = true;
+
+    while (running) {
+        switch (state) {
+
+        case GameState::EcranAccueil: {
+            std::cout << "=== POKEMON ATTACK ===\n";
+            std::cout << "Appuyez sur Entree pour commencer...";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            state = GameState::Exploration;  
+            break;
+        }
+        
+
+        case GameState::Exploration: {
+            std::cout << "\n--- Exploration ---\n";
+            std::cout << "1. Continuer d'explorer\n2. Quitter\n";
+            int choix;
+            std::cin >> choix;
+
+            if (choix == 2) {
+                running = false;
+            } else if (choix==1){
+                int r = std::rand() % 2;
+                if (r == 0) state = GameState::Rencontre;
+                else state = GameState::Combat;
+            }
+            else {
+                std::cout << "il faut écouter les consignes!\n";
+            }
+            break;
+        }
+
+        case GameState::Rencontre: {
+            std::cout << "\n>>> Rencontre avec un Pokemon sauvage !\n";
+            std::cout << "C'est un %";
+            Pokemon clone = dex.getClonePokemon(25);
+            std::cout << "Essayer de capturer ? (o/n): ";
+            char c;
+            std::cin >> c;
+            if (c == 'o') {
+                bool succes = (std::rand() % 2 == 0);
+                if (succes) std::cout << "Capture reussie !\n";
+                else std::cout << "Capture echouee...\n";
+            }
+            state = GameState::Exploration;
+            break;
+        }
+
+        case GameState::Combat: {
+            std::cout << "\n!!! Combat dans l'arene !!!\n";
+            bool victoire = (std::rand() % 2 == 0);
+            if (victoire) {
+                std::cout << "Victoire ! Vous avez vole un Pokemon.\n";
+                state = GameState::Exploration;
+            } else {
+                std::cout << "Defaite... GAME OVER.\n";
+                state = GameState::GameOver;
+            }
+            break;
+        }
+
+        case GameState::GameOver: {
+            std::cout << "\n=== GAME OVER ===\n";
+            std::cout << "Recommencer ? (o/n): ";
+            char restart;
+            std::cin >> restart;
+            if (restart == 'o')
+                state = GameState::EcranAccueil;
+            else
+                running = false;
+            break;
+        }
+        }
+    }
+
+    std::cout << "Merci d'avoir joue !\n";
+    return 0;
+    //*/
+     
 }
+
