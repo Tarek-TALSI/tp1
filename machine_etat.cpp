@@ -1,4 +1,5 @@
 #include "machine_etat.hpp"
+#include "Pokemon.hpp"
 
 
 GameState* EcranAccueil::handle() {
@@ -82,26 +83,51 @@ GameState* Combat::handle() {
     int randomId_h = std::rand() % 151 + 1; 
     Pokemon clone1 = Pokedex::getInstance().getClonePokemon(randomId_h);
     
-    std::cout << "Un" <<clone1.getName()<< "veut en découdre !\n";
-    std::cout << "\n veut tu attaquer avec le pouvoir de l'amitié ou avec la force brute et aléatoire ? (oui/non) ";
-    std::string reponse;
-    std::cin >> reponse;
-    if (reponse == "oui") {
-        std::cout << "Tu as choisi le pouvoir de l'amitié !\n";
-        std::cout << "Victoire ! Vous avez vole un Pokemon mais avec amitié donc ça va.\n";
-        return new Exploration();
-    } else {
-    bool victoire = (std::rand() % 2 == 0);
-    if (victoire) {
-        std::cout << "Victoire (mais c'est pas bien car l'amitié c'est mieux)! Vous avez vole un Pokemon ce qui fait de vous une mauvaise personne.\n";
-        return new Exploration();
-    } else {
-        std::cout << "Vous avez perdu et vous auriez du choisir l'amitié.\n";
-        return new GameOver();
+    std::cout << "Un " <<clone1.getName()<< " veut en découdre !\n";
+    
+    std::cout << "Choisis ton Pokemon pour le combat"<<std::endl;
+
+    while(true){
+        int randomId_p = std::rand() % 151 + 1;
+        Pokemon clone2= Pokedex::getInstance().getClonePokemon(randomId_p);
+        std::cout <<"est ce que tu veux combattre avec "<<clone2.getName()<<" ? (oui/non) ";
+        std::string reponse;
+        std::cin>>reponse;
+        if(reponse=="oui"){
+            while(clone1.getHitPoint()>0 && clone2.getHitPoint()>0){
+                std::cout<<"------------------------"<<std::endl;
+                
+                clone2.doAttack(clone1);
+                if(clone1.getHitPoint()<=0) break;
+            
+                clone1.doAttack(clone2);
+                if(clone2.getHitPoint()<=0) break;
+                std::cout<<"il reste "<<clone1.getHitPoint()<<" points de vie a "<<clone1.getName()<<std::endl;
+                std::cout<<"il reste "<<clone2.getHitPoint()<<" points de vie a "<<clone2.getName()<<std::endl;
+                std::cout<<"Veut tu continuer le combat ou fuir? (continuer/fuir) ";
+                std::string action;
+                std::cin>>action;
+                if(action=="fuir"){
+                    std::cout<<"Tu as fui le combat, tu es un lâche !"<<std::endl;
+                    return new Exploration();
+                }
+                else if(action!="continuer"){
+                    std::cout<<"Il faut écouter les consignes !"<<std::endl;
+                }
+                
+
+            }
+            if(clone1.getHitPoint()<=0){
+                std::cout<<"Bravo tu as gagné le combat !"<<std::endl;
+                return new Exploration();
+            }
+            else{
+                std::cout<<"Dommage tu as perdu le combat !"<<std::endl;
+                return new GameOver();
+        }
     }
 }
 }
-
 
 GameState* GameOver::handle() {
     std::cout << "\n=== GAME OVER ===\n";

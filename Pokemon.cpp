@@ -18,12 +18,16 @@ Pokemon::Pokemon(const Pokemon& otherpokemon)
 Pokemon::~Pokemon() {}
 
 void Pokemon::doAttack(Pokemon& target) {
+    if (this -> hitPoint <= 0) {
+        std::cout << name << " cannot attack because it has fainted." << std::endl;
+        return;
+    }
     std::cout << name << " is attacking " << target.name <<std::endl;
     double damage = (attack/target.defense)*10;
     if (damage < 0) damage = 0;
     target.hitPoint= target.hitPoint - damage; 
     if (target.hitPoint < 0){target.hitPoint = 0;}
-    std::cout <<target.name<<"lost"<<damage<<"points of health"<<std::endl;
+    std::cout <<target.name<<" lost "<<damage<<" points of health"<<std::endl;
     
 }
 

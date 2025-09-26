@@ -27,6 +27,7 @@ class Pokemon{
 
     void doAttack(Pokemon& target);
     std::string getName() const;
+    double getHitPoint() const {return hitPoint;}
 };
 
 #endif
