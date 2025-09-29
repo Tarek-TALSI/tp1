@@ -1,6 +1,23 @@
 #include "machine_etat.hpp"
 #include "Pokemon.hpp"
 
+int taille_equipe=0;
+Pokemon_Attack attackTeam;
+
+bool askYesNo(const std::string& question) {
+    while (true) {
+        std::cout << question << " (oui/non): ";
+        std::string reponse;
+        std::cin >> reponse;
+
+        if (reponse == "oui") return true;
+        if (reponse == "non") return false;
+
+        std::cout << "Réponse invalide, tape 'oui' ou 'non'.\n";
+    }
+}
+
+
 
 GameState* EcranAccueil::handle() {
     std::cout << "=== POKEMON ATTACK ===\n";
@@ -11,6 +28,7 @@ GameState* EcranAccueil::handle() {
 
 
 GameState* Exploration::handle() {
+    
     std::cout << "\n--- Exploration ---\n";
     std::cout << "1. Continuer d'explorer\n2. Quitter\n";
     int choix;
@@ -18,8 +36,11 @@ GameState* Exploration::handle() {
 
     if (choix == 2) return nullptr;
     else if (choix == 1) {
-        int r = std::rand() % 2;
-        if (r == 0) return new Rencontre();
+        if (taille_equipe<6){
+            std::cout << "Il te manque "<<6-taille_equipe<<" pokemons pour avoir une équipe complète.\n";
+            return new Rencontre();
+        }
+        
         else return new Combat();
     } else {
         std::cout << "Il faut écouter les consignes !\n"; 
@@ -35,46 +56,30 @@ GameState* Rencontre::handle() {
     Pokemon clone = Pokedex::getInstance().getClonePokemon(randomId_R);
     std::cout << "C'est un " << clone.getName() << " !" << std::endl;
 
-    while (true) {
-        std::cout << "Veux-tu le capturer ? (oui/non): ";
-        std::string choix;
-        std::cin >> choix;
-
-        if (choix == "non") {
-            std::cout << "Tu as laissé partir le Pokemon. Tu fais donc parti du lobby anti-exploitation des pokemons.\n";
-            return new Exploration();
-        }
-
-        if (choix == "oui") {
-            while (true) {
-                std::cout << "Es-tu sûr de vouloir perpétrer le cycle de la haine et de la répression envers ce Pokemon ? (oui/non): ";
-                std::string reponse;
-                std::cin >> reponse;
-
-                if (reponse == "non") {
-                    std::cout << "Tu es redevenu un être humain et ce Pokemon peut retourner gambader dans la prairie.\n";
-                    return new Exploration();
-                }
-
-                if (reponse == "oui") {
-                    std::cout << "D'accord, sans âme. Tu essayes de capturer ce Pokemon en l'ayant blessé.\n";
-                    bool succes = (std::rand() % 2 == 0);
-                    if (succes) {
-                        std::cout << "Capture réussie ... Un Pokemon de plus subira ton joug.\n";
-                    } else {
-                        std::cout << "Capture échouée. Tu n'as même pas réussi à capturer un Pokemon.\n";
-                    }
-                    std::cout << "Avant de repartir en exploration, le jeu t'informes que tu as reproduit des erreurs du passé dans cette grande distopie qu'est Pokemon. \n";
-                    return new Exploration();
-                }
-
-                std::cout << "Il faut écouter les consignes !\n";
-            }
-        }
-
-        std::cout << "Il faut écouter les consignes !\n";
+    
+    if (!askYesNo("Veux-tu le capturer ?")) {
+        std::cout << "Tu as laissé partir le Pokemon. Tu fais donc parti du lobby anti-exploitation des pokemons.\n";
+        return new Exploration();
     }
+
+    
+    if (!askYesNo("Es-tu sûr de vouloir perpétrer le cycle de la haine et de la répression envers ce Pokemon ?")) {
+        std::cout << "Tu es redevenu un être humain et ce Pokemon peut retourner gambader dans la prairie.\n";
+        return new Exploration();
+    }
+
+    
+    std::cout << "D'accord, sans âme. Tu essayes de capturer ce Pokemon en l'ayant blessé.\n";
+    std::cout << "Capture réussie ... Un Pokemon de plus subira ton joug.\n";
+    taille_equipe++;
+    attackTeam.addPokemon(clone);
+
+    std::cout << "Avant de repartir en exploration, le jeu t'informes que tu as reproduit des erreurs du passé dans cette grande distopie qu'est Pokemon.\n";
+    return new Exploration();
 }
+    
+
+
 
 
 
@@ -140,6 +145,75 @@ GameState* Combat::handle() {
     }
 }
 }
+
+GameState* CombatDresseur::handle() {
+    std::cout << "\n=== Défi d'un dresseur adverse ! ===\n";
+
+    // Génération des deux teams
+    std::cout << "Ton équipe :\n";
+    auto playerTeam = attackTeam.getTeam(); // Ton équipe déjà capturée
+    for (auto& p : playerTeam) {
+        std::cout << " - " << p.getName() << " (" << p.getHitPoint() << " HP)\n";
+    }
+
+    std::cout << "\nEquipe adverse :\n";
+    auto opponentTeam = generateRandomTeam(6);
+    for (auto& p : opponentTeam) {
+        std::cout << " - " << p.getName() << " (" << p.getHitPoint() << " HP)\n";
+    }
+
+    std::cout << "\n=== Début du combat ===\n";
+
+    int playerIndex = 0;
+    int opponentIndex = 0;
+
+    while (playerIndex < playerTeam.size() && opponentIndex < opponentTeam.size()) {
+        Pokemon& playerPokemon = playerTeam[playerIndex];
+        Pokemon& opponentPokemon = opponentTeam[opponentIndex];
+
+        std::cout << "\nCombat : " << playerPokemon.getName() << " vs " << opponentPokemon.getName() << "\n";
+
+        while (playerPokemon.getHitPoint() > 0 && opponentPokemon.getHitPoint() > 0) {
+            // Attaque en fonction de la vitesse
+            if (playerPokemon.getSpeed() >= opponentPokemon.getSpeed()) {
+                playerPokemon.doAttack(opponentPokemon);
+                if (opponentPokemon.getHitPoint() <= 0) break;
+                opponentPokemon.doAttack(playerPokemon);
+            } else {
+                opponentPokemon.doAttack(playerPokemon);
+                if (playerPokemon.getHitPoint() <= 0) break;
+                playerPokemon.doAttack(opponentPokemon);
+            }
+
+            std::cout << playerPokemon.getName() << " HP: " << playerPokemon.getHitPoint()
+                      << " | " << opponentPokemon.getName() << " HP: " << opponentPokemon.getHitPoint() << "\n";
+
+            if (!askYesNo("Continuer le combat ?")) {
+                std::cout << "Tu as fui le combat !\n";
+                return new Exploration();
+            }
+        }
+
+        // Passer au Pokémon suivant si l'un est KO
+        if (playerPokemon.getHitPoint() <= 0) {
+            std::cout << playerPokemon.getName() << " est KO !\n";
+            playerIndex++;
+        }
+        if (opponentPokemon.getHitPoint() <= 0) {
+            std::cout << opponentPokemon.getName() << " est KO !\n";
+            opponentIndex++;
+        }
+    }
+
+    if (playerIndex >= playerTeam.size()) {
+        std::cout << "\nTous tes Pokémon sont KO... Tu as perdu !\n";
+    } else {
+        std::cout << "\nTous les Pokémon adverses sont KO ! Victoire !\n";
+    }
+
+    return new Exploration();
+}
+
 
 GameState* GameOver::handle() {
     std::cout << "\n=== GAME OVER ===\n";

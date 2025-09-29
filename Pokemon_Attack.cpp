@@ -1,5 +1,17 @@
 #include <iostream>
 #include "Pokemon_Attack.hpp"
+#include "Pokedex.hpp"
+#include "Pokemon.hpp"
+
+std::vector<Pokemon> generateRandomTeam(int teamSize = 6) {
+    std::vector<Pokemon> team;
+    for (int i = 0; i < teamSize; ++i) {
+        int randomId = std::rand() % 151 + 1; // Pokémon 1 à 151
+        Pokemon p = Pokedex::getInstance().getClonePokemon(randomId);
+        team.push_back(p);
+    }
+    return team;
+}
 
 void Pokemon_Attack::addPokemon(const Pokemon& pokemon) {
     if (std::size(pokemons)>=6) {
