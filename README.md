@@ -1,6 +1,6 @@
 # **Labs Pokemon C++**
 
-During this TP I had the chance to discover and practice C++ programming, a language I didn’t know before.
+During this labs, I had the chance to discover and practice C++ programming, a language I didn’t know before.
 I coded a very simple version of Pokemon. Sadly, I didn’t have time to add a graphic interface with SFML, so everything runs in the terminal.
 
 The game is easy to understand:
