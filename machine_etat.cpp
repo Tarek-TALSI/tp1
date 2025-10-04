@@ -221,7 +221,7 @@ GameState* CombatDresseur::handle() {
         std::cout << "\nTous les Pokémon adverses sont KO ! Victoire !\n";
     }
 
-    return new Exploration();
+    return new GameOver();
 }
 
 
